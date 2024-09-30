@@ -1,88 +1,102 @@
-// This file contains type definitions for your data.
-// It describes the shape of the data, and what data type each property should accept.
-// For simplicity of teaching, we're manually defining these types.
-// However, these types are generated automatically if you're using an ORM such as Prisma.
-export type User = {
-  id: string;
-  name: string;
+// Ce fichier contient les définitions des types basées sur la structure des tables SQL.
+// Il décrit la forme des données et les types acceptés pour chaque propriété.
+
+// Définit le type correspondant à la table "client"
+export type Client = {
+  ref_client: number;
+  nom: string;
+  prenom: string;
+  adresse: string;
+  code_postal: string;
+  ville: string;
+  téléphone: string;
   email: string;
+  commercial_rattache: string;
   password: string;
 };
 
-export type Customer = {
-  id: string;
-  name: string;
+// Définit le type correspondant à la table "Rubrique"
+export type Rubrique = {
+  Id_Rubrique: number;
+  libelle: string;
+  image: string;
+  active: boolean;
+  Id_Rubrique_1: number | null; // Peut être null si la rubrique est une catégorie principale
+};
+
+// Définit le type correspondant à la table "type_client"
+export type TypeClient = {
+  Id_type_client: number;
+  type_client: string;
+  ref_client: number;
+};
+
+// Définit le type correspondant à la table "Fournisseur"
+export type Fournisseur = {
+  Id_Fournisseur: number;
   email: string;
-  image_url: string;
+  telephone: string;
+  adresse: string;
+  nom: string;
 };
 
-export type Invoice = {
-  id: string;
-  customer_id: string;
-  amount: number;
-  date: string;
-  // In TypeScript, this is called a string union type.
-  // It means that the "status" property can only be one of the two strings: 'pending' or 'paid'.
-  status: 'pending' | 'paid';
+// Définit le type correspondant à la table "Bon_de_livraison"
+export type BonDeLivraison = {
+  Id_Bon_de_livraison: number;
+  reference: string;
 };
 
-export type Revenue = {
-  month: string;
-  revenue: number;
+
+// Définit le type correspondant à la table "Produit"
+export type Produit = {
+  Id_Produit: number;
+  description: string;
+  photo: string;
+  active: boolean;
+  libelle: string;
+  prix: number;
+  Id_Fournisseur: number;
+  Id_Rubrique: number;
 };
 
-export type LatestInvoice = {
-  id: string;
-  name: string;
-  image_url: string;
-  email: string;
-  amount: string;
+// Définit le type correspondant à la table "Commande"
+export type Commande = {
+  Id_Commande: number;
+  nom: string;
+  total: number;
+  etat: string;
+  date_commande: string; // Utilise le format date (YYYY-MM-DD)
+  adresse_livraison: string;
+  ref_client: number;
 };
 
-// The database returns a number for amount, but we later format it to a string with the formatCurrency function
-export type LatestInvoiceRaw = Omit<LatestInvoice, 'amount'> & {
-  amount: number;
+// Définit le type correspondant à la table "concerne"
+export type Concerne = {
+  Id_Produit: number;
+  Id_Commande: number;
+  date_achat: string; // Format date comme chaîne
+  quantite: number;
 };
 
-export type InvoicesTable = {
-  id: string;
-  customer_id: string;
-  name: string;
-  email: string;
-  image_url: string;
-  date: string;
-  amount: number;
-  status: 'pending' | 'paid';
+// Définit le type correspondant à la table "Asso_7"
+export type Asso7 = {
+  Id_Commande: number;
+  Id_Bon_de_livraison: number;
 };
 
-export type CustomersTableType = {
-  id: string;
-  name: string;
-  email: string;
-  image_url: string;
-  total_invoices: number;
-  total_pending: number;
-  total_paid: number;
+// Définit le type correspondant à la table "livree"
+export type Livree = {
+  Id_Produit: number;
+  Id_Bon_de_livraison: number;
+  date_livraison: string;
 };
 
-export type FormattedCustomersTable = {
-  id: string;
-  name: string;
-  email: string;
-  image_url: string;
-  total_invoices: number;
-  total_pending: string;
-  total_paid: string;
+// Types dérivés pour certaines interfaces spécifiques ou formatées
+export type FormattedClient = Omit<Client, 'téléphone'> & {
+  téléphone: string;
 };
 
-export type CustomerField = {
-  id: string;
-  name: string;
+export type CommandeDetails = Commande & {
+  produits: Concerne[];
 };
 
-export type InvoiceForm = {
-  id: string;
-  customer_id: string;
-  amount: number;
-  status: 'pending' | 'paid';
-};

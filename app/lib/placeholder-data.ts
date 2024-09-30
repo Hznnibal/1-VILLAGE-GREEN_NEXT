@@ -1,147 +1,116 @@
-// This file contains placeholder data that you'll be replacing with real data in the Data Fetching chapter:
-// https://nextjs.org/learn/dashboard-app/fetching-data
-const users = [
+import { Client, Produit, Fournisseur, Rubrique } from './definitions';
+
+const clients: Client[] = [
   {
-    id: '410544b2-4001-4271-9855-fec4b6a6442a',
-    name: 'User',
-    email: 'user@nextmail.com',
-    password: '123456',
+    ref_client: 1,
+    nom: 'Martin',
+    prenom: 'Alice',
+    adresse: '12 Rue de la Musique',
+    code_postal: '75001',
+    ville: 'Paris',
+    téléphone: '0123456789',
+    email: 'alice@musicworld.com',
+    commercial_rattache: 'Jean Dupont',
+    password: 'alice123',
+  },
+  {
+    ref_client: 2,
+    nom: 'Johnson',
+    prenom: 'Bob',
+    adresse: '23 Avenue des Artistes',
+    code_postal: '69000',
+    ville: 'Lyon',
+    téléphone: '0987654321',
+    email: 'bob@musicworld.com',
+    commercial_rattache: 'Marie Laurent',
+    password: 'bob123',
+  },
+  {
+    ref_client: 3,
+    nom: 'Doe',
+    prenom: 'John',
+    adresse: '45 Boulevard des Harmonies',
+    code_postal: '13000',
+    ville: 'Marseille',
+    téléphone: '0754321098',
+    email: 'john@musicworld.com',
+    commercial_rattache: 'Paul Martin',
+    password: 'john123',
   },
 ];
 
-const customers = [
+const fournisseurs: Fournisseur[] = [
   {
-    id: 'd6e15727-9fe1-4961-8c5b-ea44a9bd81aa',
-    name: 'Evil Rabbit',
-    email: 'evil@rabbit.com',
-    image_url: '/customers/evil-rabbit.png',
+    Id_Fournisseur: 1,
+    email: 'yamaha@instruments.com',
+    telephone: '0156783456',
+    adresse: '88 Rue des Instruments, Paris',
+    nom: 'Yamaha',
   },
   {
-    id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
-    name: 'Delba de Oliveira',
-    email: 'delba@oliveira.com',
-    image_url: '/customers/delba-de-oliveira.png',
-  },
-  {
-    id: '3958dc9e-742f-4377-85e9-fec4b6a6442a',
-    name: 'Lee Robinson',
-    email: 'lee@robinson.com',
-    image_url: '/customers/lee-robinson.png',
-  },
-  {
-    id: '76d65c26-f784-44a2-ac19-586678f7c2f2',
-    name: 'Michael Novotny',
-    email: 'michael@novotny.com',
-    image_url: '/customers/michael-novotny.png',
-  },
-  {
-    id: 'CC27C14A-0ACF-4F4A-A6C9-D45682C144B9',
-    name: 'Amy Burns',
-    email: 'amy@burns.com',
-    image_url: '/customers/amy-burns.png',
-  },
-  {
-    id: '13D07535-C59E-4157-A011-F8D2EF4E0CBB',
-    name: 'Balazs Orban',
-    email: 'balazs@orban.com',
-    image_url: '/customers/balazs-orban.png',
+    Id_Fournisseur: 2,
+    email: 'fender@instruments.com',
+    telephone: '0178901234',
+    adresse: '12 Guitar Street, New York',
+    nom: 'Fender',
   },
 ];
 
-const invoices = [
+const rubriques: Rubrique[] = [
   {
-    customer_id: customers[0].id,
-    amount: 15795,
-    status: 'pending',
-    date: '2022-12-06',
+    Id_Rubrique: 1,
+    libelle: 'Guitares',
+    image: '/images/guitares.jpg',
+    active: true,
+    Id_Rubrique_1: null,
   },
   {
-    customer_id: customers[1].id,
-    amount: 20348,
-    status: 'pending',
-    date: '2022-11-14',
+    Id_Rubrique: 2,
+    libelle: 'Pianos',
+    image: '/images/pianos.jpg',
+    active: true,
+    Id_Rubrique_1: null,
   },
   {
-    customer_id: customers[4].id,
-    amount: 3040,
-    status: 'paid',
-    date: '2022-10-29',
-  },
-  {
-    customer_id: customers[3].id,
-    amount: 44800,
-    status: 'paid',
-    date: '2023-09-10',
-  },
-  {
-    customer_id: customers[5].id,
-    amount: 34577,
-    status: 'pending',
-    date: '2023-08-05',
-  },
-  {
-    customer_id: customers[2].id,
-    amount: 54246,
-    status: 'pending',
-    date: '2023-07-16',
-  },
-  {
-    customer_id: customers[0].id,
-    amount: 666,
-    status: 'pending',
-    date: '2023-06-27',
-  },
-  {
-    customer_id: customers[3].id,
-    amount: 32545,
-    status: 'paid',
-    date: '2023-06-09',
-  },
-  {
-    customer_id: customers[4].id,
-    amount: 1250,
-    status: 'paid',
-    date: '2023-06-17',
-  },
-  {
-    customer_id: customers[5].id,
-    amount: 8546,
-    status: 'paid',
-    date: '2023-06-07',
-  },
-  {
-    customer_id: customers[1].id,
-    amount: 500,
-    status: 'paid',
-    date: '2023-08-19',
-  },
-  {
-    customer_id: customers[5].id,
-    amount: 8945,
-    status: 'paid',
-    date: '2023-06-03',
-  },
-  {
-    customer_id: customers[2].id,
-    amount: 1000,
-    status: 'paid',
-    date: '2022-06-05',
+    Id_Rubrique: 3,
+    libelle: 'Basses',
+    image: '/images/basses.jpg',
+    active: true,
+    Id_Rubrique_1: null,
   },
 ];
 
-const revenue = [
-  { month: 'Jan', revenue: 2000 },
-  { month: 'Feb', revenue: 1800 },
-  { month: 'Mar', revenue: 2200 },
-  { month: 'Apr', revenue: 2500 },
-  { month: 'May', revenue: 2300 },
-  { month: 'Jun', revenue: 3200 },
-  { month: 'Jul', revenue: 3500 },
-  { month: 'Aug', revenue: 3700 },
-  { month: 'Sep', revenue: 2500 },
-  { month: 'Oct', revenue: 2800 },
-  { month: 'Nov', revenue: 3000 },
-  { month: 'Dec', revenue: 4800 },
+const produits: Produit[] = [
+  {
+    Id_Produit: 1,
+    description: 'Guitare électrique Yamaha Pacifica 112V',
+    photo: '/images/yamaha_pacifica.jpg',
+    active: true,
+    libelle: 'Guitare Yamaha',
+    prix: 299.99,
+    Id_Fournisseur: 1,
+    Id_Rubrique: 1,
+  },
+  {
+    Id_Produit: 2,
+    description: 'Piano numérique Yamaha P-45',
+    photo: '/images/yamaha_p45.jpg',
+    active: true,
+    libelle: 'Piano Yamaha',
+    prix: 499.99,
+    Id_Fournisseur: 1,
+    Id_Rubrique: 2,
+  },
+  {
+    Id_Produit: 3,
+    description: 'Basse électrique Fender Precision',
+    photo: '/images/fender_precision.jpg',
+    active: true,
+    libelle: 'Basse Fender',
+    prix: 799.99,
+    Id_Fournisseur: 2,
+    Id_Rubrique: 3,
+  },
 ];
 
-export { users, customers, invoices, revenue };
+export { clients, fournisseurs, rubriques, produits };

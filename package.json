@@ -8,13 +8,11 @@
   "dependencies": {
     "@heroicons/react": "^2.1.4",
     "@tailwindcss/forms": "^0.5.7",
-    "@vercel/postgres": "^0.10.0",
-    "autoprefixer": "10.4.19",
+    "autoprefixer": "10.4.20",
     "bcrypt": "^5.1.1",
     "clsx": "^2.1.1",
     "framer-motion": "^11.9.0",
     "next": "^14.2.14",
-    "next-auth": "^4.24.7",
     "postcss": "8.4.38",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -30,6 +28,6 @@
     "@types/react-dom": "18.3.0"
   },
   "engines": {
-    "node": ">=20.12.0"
+    "node": ">=20.18.0"
   }
 }

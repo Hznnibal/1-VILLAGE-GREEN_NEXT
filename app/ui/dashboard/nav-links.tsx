@@ -1,19 +1,38 @@
+import { ArrowDownCircleIcon, GifIcon } from '@heroicons/react/16/solid';
 import {
   UserGroupIcon,
   HomeIcon,
   DocumentDuplicateIcon,
 } from '@heroicons/react/24/outline';
+import { MapIcon } from '@heroicons/react/24/solid';
 
 // Map of links to display in the side navigation.
 // Depending on the size of the application, this would be stored in a database.
 const links = [
-  { name: 'Home', href: '/dashboard', icon: HomeIcon },
-  {
-    name: 'Invoices',
-    href: '/dashboard/invoices',
+  { name: 'Accueil',
+    href: '/',
+    icon: HomeIcon,
+  },
+  { name: 'Produits',
+    href: '/produits',
     icon: DocumentDuplicateIcon,
   },
-  { name: 'Customers', href: '/dashboard/customers', icon: UserGroupIcon },
+  { name: 'Commandez',
+    href: '/commande',
+    icon: UserGroupIcon,
+  },
+  { name: 'Notre magasin',
+    href: '/magasin',
+    icon: UserGroupIcon,
+  },
+  { name: 'A propos de nous',
+    href: '/aproposdenous',
+    icon: ArrowDownCircleIcon,
+  },
+  { name: 'A propos de nous',
+    href: '/aproposdenous',
+    icon: ArrowDownCircleIcon,
+  },
 ];
 
 export default function NavLinks() {

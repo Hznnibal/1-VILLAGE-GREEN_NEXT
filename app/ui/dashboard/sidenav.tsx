@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react';
-import Link from 'next/link';
+
 import NavLinks from '@/app/ui/dashboard/nav-links';
-import { PowerIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
 export default function SideNav() {
   const [isOpen, setIsOpen] = useState(true);
@@ -14,8 +14,6 @@ export default function SideNav() {
 
   return (
     <div className="flex h-full">
-      {/* Button to toggle sidebar */}
-
       {/* Sidebar */}
       <div className={`flex flex-col px-3 py-4 md:px-2 transition-all duration-300 ${isOpen ? 'w-64' : 'w-0'} overflow-hidden`}>
         <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">

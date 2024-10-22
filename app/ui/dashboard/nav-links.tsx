@@ -1,13 +1,3 @@
-import { ArrowDownCircleIcon, GifIcon } from '@heroicons/react/16/solid';
-import {
-  UserGroupIcon,
-  HomeIcon,
-  DocumentDuplicateIcon,
-} from '@heroicons/react/24/outline';
-import { MapIcon } from '@heroicons/react/24/solid';
-
-// Map of links to display in the side navigation.
-// Depending on the size of the application, this would be stored in a database.
 const links = [
   { name: 'Guitares', href: '/guitares' },
   { name: 'Pianos', href: '/pianos' },

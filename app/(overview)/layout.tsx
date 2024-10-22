@@ -1,17 +1,28 @@
 import '@/app/ui/global.css';
 import { inter } from '@/app/ui/fonts';
 import SideNav from '../ui/dashboard/sidenav';
+import Providers from '../ui/panier/Providers';
+import Navbar from '../ui/panier/Navbar';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body>
-        <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
-          <div className="w-full flex-none md:w-64">
-            <SideNav />
+    <Providers>
+      <html lang="en">
+        <body className={inter.className}>
+          {/* La Navbar est maintenant persistante à travers les pages */}
+          <Navbar />
+          {/* Conteneur principal avec disposition en colonne */}
+          <div className="flex flex-col h-screen">
+            <div className="flex flex-col md:flex-row flex-grow">
+              <SideNav />
+              {/* Contenu de la page */}
+              <div className="flex-grow p-6 md:overflow-y-auto md:p-12">
+                {children}
+              </div>
+            </div>
           </div>
-          <div className="flex-grow p-6 md:overflow-y-auto md:p-12">{children}</div>
-        </div></body>
-    </html>
+        </body>
+      </html>
+    </Providers>
   );
 }

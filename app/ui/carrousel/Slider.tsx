@@ -28,8 +28,9 @@ const Slider = () => {
       clearTimeout(timer);
     };
   }, [activeImage]);
+
   return (
-    <main className="grid place-items-center md:grid-cols-2 grid-cols-1 w-full mx-auto max-w-5xl shadow-2xl rounded-2xl">
+    <main className="grid place-items-center md:grid-cols-2 grid-cols-1 w-full mx-auto max-w-8xl shadow-2xl rounded-2xl ">
       <div
         className={`w-full flex justify-center items-center gap-4 transition-transform ease-in-out duration-500 md:rounded-2xl p-6 md:p-0`}
       >
@@ -38,14 +39,14 @@ const Slider = () => {
             key={idx}
             className={`${
               idx === activeImage
-                ? "block w-full h-[80vh] object-cover transition-all duration-500 ease-in-out"
+                ? "block w-full h-[40vh] object-cover transition-all duration-500 ease-in-out"
                 : "hidden"
             }`}
           >
             <Image
               src={elem.src}
               alt=""
-              width={400}
+              width={600}
               height={400}
               className="w-full h-full object-cover md:rounded-tl-3xl md:rounded-bl-3xl"
             />

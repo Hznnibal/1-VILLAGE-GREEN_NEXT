@@ -12,16 +12,52 @@ import {
 } from './definitions';
 import { formatCurrency } from './utils';
 
-// Fonction pour récupérer les revenus (Revenue n'existe pas dans vos tables, donc cette partie est à ignorer si non pertinente)
-export async function fetchRevenue() {
+
+// Fonction pour récupérer tous les produits
+export async function fetchProduits() {
   try {
-    const data = await sql<{ month: string; revenue: number }>`SELECT * FROM revenue`;
+    const data = await sql<Produit>`
+      SELECT
+        id_produit,
+        description,
+        photo,
+        active,
+        libelle,
+        prix,
+        id_fournisseur,
+        id_rubrique
+      FROM Produit
+      WHERE active = true -- On peut ne récupérer que les produits actifs
+      ORDER BY libelle ASC
+    `;
+
     return data.rows;
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch revenue data.');
+    throw new Error('Failed to fetch produits.');
   }
 }
+
+// Fonction pour récupérer toutes les rubriques
+export async function fetchRubriques() {
+  try {
+    const data = await sql<Rubrique>`
+      SELECT
+        id_rubrique,
+        libelle,
+        id_rubrique_1
+      FROM Rubrique
+      WHERE active = true -- Récupérer uniquement les rubriques actives
+      ORDER BY libelle ASC
+    `;
+
+    return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch rubriques.');
+  }
+}
+
 
 // Fonction pour récupérer les dernières commandes (ou factures)
 export async function fetchLatestCommandes() {

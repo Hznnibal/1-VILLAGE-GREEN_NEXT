@@ -41,28 +41,28 @@ const clients: Client[] = [
 
 const fournisseurs: Fournisseur[] = [
   {
-    Id_Fournisseur: 1,
+    id_fournisseur: 1,
     email: 'yamaha@instruments.com',
     telephone: '0156783456',
     adresse: '88 Rue des Instruments, Paris',
     nom: 'Yamaha',
   },
   {
-    Id_Fournisseur: 2,
+    id_fournisseur: 2,
     email: 'fender@instruments.com',
     telephone: '0178901234',
     adresse: '12 Guitar Street, New York',
     nom: 'Fender',
   },
   {
-    Id_Fournisseur: 3,
+    id_fournisseur: 3,
     email: 'roland@instruments.com',
     telephone: '0187654321',
     adresse: '56 Synth Road, Tokyo',
     nom: 'Roland',
   },
   {
-    Id_Fournisseur: 4,
+    id_fournisseur: 4,
     email: 'gibson@instruments.com',
     telephone: '0123456789',
     adresse: '100 Gibson Blvd, Nashville',
@@ -72,224 +72,224 @@ const fournisseurs: Fournisseur[] = [
 
 const rubriques: Rubrique[] = [
   {
-    Id_Rubrique: 1,
+    id_rubrique: 1,
     libelle: 'Guitares',
     image: '/images_instruments/guitares.jpg',
     active: true,
-    Id_Rubrique_1: null, // Rubrique principale
+    id_rubrique_1: null, // Rubrique principale
   },
   {
-    Id_Rubrique: 2,
+    id_rubrique: 2,
     libelle: 'Guitares acoustiques',
     image: '/images_instruments/guitares_acoustiques.jpg',
     active: true,
-    Id_Rubrique_1: 1, // Sous-rubrique de 'Guitares'
+    id_rubrique_1: 1, // Sous-rubrique de 'Guitares'
   },
   {
-    Id_Rubrique: 3,
+    id_rubrique: 3,
     libelle: 'Guitares électriques',
     image: '/images_instruments/guitares_electriques.jpg',
     active: true,
-    Id_Rubrique_1: 1, // Sous-rubrique de 'Guitares'
+    id_rubrique_1: 1, // Sous-rubrique de 'Guitares'
   },
   {
-    Id_Rubrique: 4,
+    id_rubrique: 4,
     libelle: 'Guitares classiques',
     image: '/images_instruments/guitares_classiques.jpg',
     active: true,
-    Id_Rubrique_1: 1, // Sous-rubrique de 'Guitares'
+    id_rubrique_1: 1, // Sous-rubrique de 'Guitares'
   },
   {
-    Id_Rubrique: 5,
+    id_rubrique: 5,
     libelle: 'Pianos',
     image: '/images_instruments/pianos.jpg',
     active: true,
-    Id_Rubrique_1: null, // Rubrique principale
+    id_rubrique_1: null, // Rubrique principale
   },
   {
-    Id_Rubrique: 6,
+    id_rubrique: 6,
     libelle: 'Pianos acoustiques',
     image: '/images_instruments/pianos_acoustiques.jpg',
     active: true,
-    Id_Rubrique_1: 5, // Sous-rubrique de 'Pianos'
+    id_rubrique_1: 5, // Sous-rubrique de 'Pianos'
   },
   {
-    Id_Rubrique: 7,
+    id_rubrique: 7,
     libelle: 'Pianos numériques',
     image: '/images_instruments/pianos_numeriques.jpg',
     active: true,
-    Id_Rubrique_1: 5, // Sous-rubrique de 'Pianos'
+    id_rubrique_1: 5, // Sous-rubrique de 'Pianos'
   },
   {
-    Id_Rubrique: 8,
+    id_rubrique: 8,
     libelle: 'Basses',
     image: '/images_instruments/basses.jpg',
     active: true,
-    Id_Rubrique_1: null, // Rubrique principale
+    id_rubrique_1: null, // Rubrique principale
   },
   {
-    Id_Rubrique: 9,
+    id_rubrique: 9,
     libelle: 'Basses électriques',
     image: '/images_instruments/basses_electriques.jpg',
     active: true,
-    Id_Rubrique_1: 8, // Sous-rubrique de 'Basses'
+    id_rubrique_1: 8, // Sous-rubrique de 'Basses'
   },
   {
-    Id_Rubrique: 10,
+    id_rubrique: 10,
     libelle: 'Batteries et Percussions',
     image: '/images_instruments/batteries_percussions.jpg',
     active: true,
-    Id_Rubrique_1: null, // Rubrique principale
+    id_rubrique_1: null, // Rubrique principale
   },
   {
-    Id_Rubrique: 11,
+    id_rubrique: 11,
     libelle: 'Batteries acoustiques',
     image: '/images_instruments/batteries_acoustiques.jpg',
     active: true,
-    Id_Rubrique_1: 10, // Sous-rubrique de 'Batteries et Percussions'
+    id_rubrique_1: 10, // Sous-rubrique de 'Batteries et Percussions'
   },
   {
-    Id_Rubrique: 12,
+    id_rubrique: 12,
     libelle: 'Batteries électroniques',
     image: '/images_instruments/batteries_electroniques.jpg',
     active: true,
-    Id_Rubrique_1: 10, // Sous-rubrique de 'Batteries et Percussions'
+    id_rubrique_1: 10, // Sous-rubrique de 'Batteries et Percussions'
   },
   {
-    Id_Rubrique: 13,
+    id_rubrique: 13,
     libelle: 'Claviers et Synthétiseurs',
     image: '/images_instruments/claviers_synthetiseurs.jpg',
     active: true,
-    Id_Rubrique_1: null, // Rubrique principale
+    id_rubrique_1: null, // Rubrique principale
   },
   {
-    Id_Rubrique: 14,
+    id_rubrique: 14,
     libelle: 'Synthétiseurs',
     image: '/images_instruments/synthetiseurs.jpg',
     active: true,
-    Id_Rubrique_1: 13, // Sous-rubrique de 'Claviers et Synthétiseurs'
+    id_rubrique_1: 13, // Sous-rubrique de 'Claviers et Synthétiseurs'
   },
   {
-    Id_Rubrique: 15,
+    id_rubrique: 15,
     libelle: 'Pianos de scène',
     image: '/images_instruments/pianos_scene.jpg',
     active: true,
-    Id_Rubrique_1: 13, // Sous-rubrique de 'Claviers et Synthétiseurs'
+    id_rubrique_1: 13, // Sous-rubrique de 'Claviers et Synthétiseurs'
   },
   {
-    Id_Rubrique: 16,
+    id_rubrique: 16,
     libelle: 'Instruments à Vent',
     image: '/images_instruments/instruments_vent.jpg',
     active: true,
-    Id_Rubrique_1: null, // Rubrique principale
+    id_rubrique_1: null, // Rubrique principale
   },
   {
-    Id_Rubrique: 17,
+    id_rubrique: 17,
     libelle: 'Cuivres',
     image: '/images_instruments/cuivres.jpg',
     active: true,
-    Id_Rubrique_1: 16, // Sous-rubrique de 'Instruments à Vent'
+    id_rubrique_1: 16, // Sous-rubrique de 'Instruments à Vent'
   },
   {
-    Id_Rubrique: 18,
+    id_rubrique: 18,
     libelle: 'Bois',
     image: '/images_instruments/bois.jpg',
     active: true,
-    Id_Rubrique_1: 16, // Sous-rubrique de 'Instruments à Vent'
+    id_rubrique_1: 16, // Sous-rubrique de 'Instruments à Vent'
   },
   {
-    Id_Rubrique: 19,
+    id_rubrique: 19,
     libelle: 'Instruments Traditionnels',
     image: '/images_instruments/instruments_traditionnels.jpg',
     active: true,
-    Id_Rubrique_1: null, // Rubrique principale
+    id_rubrique_1: null, // Rubrique principale
   },
   {
-    Id_Rubrique: 20,
+    id_rubrique: 20,
     libelle: 'Cordes frottées',
     image: '/images_instruments/cordes_frottees.jpg',
     active: true,
-    Id_Rubrique_1: 19, // Sous-rubrique de 'Instruments Traditionnels'
+    id_rubrique_1: 19, // Sous-rubrique de 'Instruments Traditionnels'
   },
   {
-    Id_Rubrique: 21,
+    id_rubrique: 21,
     libelle: 'Percussions traditionnelles',
     image: '/images_instruments/percussions_traditionnelles.jpg',
     active: true,
-    Id_Rubrique_1: 19, // Sous-rubrique de 'Instruments Traditionnels'
+    id_rubrique_1: 19, // Sous-rubrique de 'Instruments Traditionnels'
   },
 ];
 
 const produits: Produit[] = [
   {
-    Id_Produit: 1,
+    id_produit: 1,
     description: 'Guitare électrique Yamaha Pacifica 112V',
     photo: '/images_instruments/yamaha_pacifica.jpg',
     active: true,
     libelle: 'Guitare Yamaha',
     prix: 299.99,
-    Id_Fournisseur: 1,
-    Id_Rubrique: 3, // Lié à 'Guitares électriques'
+    id_fournisseur: 1,
+    id_rubrique: 3, // Lié à 'Guitares électriques'
   },
   {
-    Id_Produit: 2,
+    id_produit: 2,
     description: 'Piano numérique Yamaha P-45',
     photo: '/images_instruments/yamaha_p45.jpg',
     active: true,
     libelle: 'Piano Yamaha',
     prix: 499.99,
-    Id_Fournisseur: 1,
-    Id_Rubrique: 7, // Lié à 'Pianos numériques'
+    id_fournisseur: 1,
+    id_rubrique: 7, // Lié à 'Pianos numériques'
   },
   {
-    Id_Produit: 3,
+    id_produit: 3,
     description: 'Basse électrique Fender Precision',
     photo: '/images_instruments/fender_precision.jpg',
     active: true,
     libelle: 'Basse Fender',
     prix: 799.99,
-    Id_Fournisseur: 2,
-    Id_Rubrique: 9, // Lié à 'Basses électriques'
+    id_fournisseur: 2,
+    id_rubrique: 9, // Lié à 'Basses électriques'
   },
   {
-    Id_Produit: 4,
+    id_produit: 4,
     description: 'Batterie acoustique Yamaha Stage Custom',
     photo: '/images_instruments/yamaha_stage_custom.jpg',
     active: true,
     libelle: 'Batterie Yamaha',
     prix: 999.99,
-    Id_Fournisseur: 1,
-    Id_Rubrique: 11, // Lié à 'Batteries acoustiques'
+    id_fournisseur: 1,
+    id_rubrique: 11, // Lié à 'Batteries acoustiques'
   },
   {
-    Id_Produit: 5,
+    id_produit: 5,
     description: 'Synthétiseur Roland Jupiter-X',
     photo: '/images_instruments/roland_jupiter_x.jpg',
     active: true,
     libelle: 'Synthétiseur Roland',
     prix: 2499.99,
-    Id_Fournisseur: 3,
-    Id_Rubrique: 14, // Lié à 'Synthétiseurs'
+    id_fournisseur: 3,
+    id_rubrique: 14, // Lié à 'Synthétiseurs'
   },
   {
-    Id_Produit: 6,
+    id_produit: 6,
     description: 'Trompette Yamaha YTR-2330',
     photo: '/images_instruments/yamaha_trompette.jpg',
     active: true,
     libelle: 'Trompette Yamaha',
     prix: 699.99,
-    Id_Fournisseur: 1,
-    Id_Rubrique: 17, // Lié à 'Cuivres'
+    id_fournisseur: 1,
+    id_rubrique: 17, // Lié à 'Cuivres'
   },
   {
-    Id_Produit: 7,
+    id_produit: 7,
     description: 'Violon Stentor 1400',
     photo: '/images_instruments/stentor_violon.jpg',
     active: true,
     libelle: 'Violon Stentor',
     prix: 199.99,
-    Id_Fournisseur: 4,
-    Id_Rubrique: 20, // Lié à 'Cordes frottées'
+    id_fournisseur: 4,
+    id_rubrique: 20, // Lié à 'Cordes frottées'
   },
 ];
 

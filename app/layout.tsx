@@ -1,8 +1,8 @@
 import '@/app/ui/global.css';
 import { inter } from '@/app/ui/fonts';
-import SideNav from '../ui/dashboard/sidenav';
-import Providers from '../ui/panier/Providers';
-import Navbar from '../ui/panier/Navbar';
+import SideNav from './ui/dashboard/sidenav';
+import Providers from './ui/panier/Providers';
+import Navbar from './ui/panier/Navbar';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

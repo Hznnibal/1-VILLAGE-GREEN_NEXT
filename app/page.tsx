@@ -1,4 +1,4 @@
-import Slider from '../ui/carrousel/Slider';
+import Slider from './ui/carrousel/Slider';
 
 export default function Page() {
   return (

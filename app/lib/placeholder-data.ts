@@ -37,6 +37,18 @@ const clients: Client[] = [
     commercial_rattache: 'Paul Martin',
     password: 'john123',
   },
+  {
+    ref_client: 4,
+    nom: 'db',
+    prenom: 'd',
+    adresse: '45 Bouled des Harmonies',
+    code_postal: '13400',
+    ville: 'Marsfeille',
+    téléphone: '0754321098',
+    email: 'johnf@musicworld.com',
+    commercial_rattache: 'Paul Mafrtin',
+    password: 'john123',
+  },
 ];
 
 const fournisseurs: Fournisseur[] = [

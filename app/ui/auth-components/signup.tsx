@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation'; // Import du hook useRouter
 import {
   AtSymbolIcon,
   KeyIcon,
@@ -20,6 +21,8 @@ export default function SignupForm() {
   const [ville, setVille] = useState('');
   const [telephone, setTelephone] = useState('');
 
+  const router = useRouter(); // Initialisation du router
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -30,13 +33,12 @@ export default function SignupForm() {
 
     // Appel à l'API pour créer un nouvel utilisateur
     try {
-      const response = await fetch('/api/signup/route', {
+      const response = await fetch('/api/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          // ref_client: refclient,
           nom: lastName,
           prenom: firstName,
           email: email,
@@ -45,22 +47,14 @@ export default function SignupForm() {
           code_postal: codePostal,
           ville: ville,
           téléphone: telephone,
-          // commercial_rattache: commercial,
         }),
       });
 
       if (response.ok) {
         alert('Compte créé avec succès');
-        // Optionnel : réinitialise le formulaire
-        setFirstName('');
-        setLastName('');
-        setEmail('');
-        setPassword('');
-        setConfirmPassword('');
-        setAdresse('');
-        setCodePostal('');
-        setVille('');
-        setTelephone('');
+        
+        // Redirection vers la page de connexion
+        router.push('/auth/sign-in');
       } else {
         const errorData = await response.json();
         alert(errorData.message || 'Une erreur est survenue');

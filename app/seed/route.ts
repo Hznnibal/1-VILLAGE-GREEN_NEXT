@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import { db } from '@vercel/postgres';
-import { clients, fournisseurs, rubriques, produits } from '../app/lib/placeholder-data';
-import { Client, Fournisseur, Rubrique, Produit, TypeClient, BonDeLivraison, Commande, Concerne, Asso7, Livree } from '../app/lib/definitions'; // Import des types définis
+import { clients, fournisseurs, rubriques, produits } from '@/app/lib/placeholder-data';
+import { Client, Fournisseur, Rubrique, Produit, TypeClient, BonDeLivraison, Commande, Concerne, Asso7, Livree } from '../lib/definitions'; // Import des types définis
 
 const client = await db.connect();
 

@@ -1,30 +1,55 @@
+// app/api/signup/route.ts
+
+import bcrypt from 'bcrypt';
+import { db } from '@vercel/postgres'; // Assurez-vous que le bon chemin est utilisé
 import { NextResponse } from 'next/server';
-import { pool } from '@/app/lib/db'; // Assure-toi que le chemin est correct
+
+const client = await db.connect();
 
 export async function POST(request: Request) {
-    const body = await request.json();
-    
-    const { nom, prenom, adresse, code_postal, ville, téléphone, email, password } = body;
+  const {
+    nom,
+    prenom,
+    email,
+    password,
+    adresse,
+    code_postal,
+    ville,
+    téléphone,
+  } = await request.json();
 
-    try {
-        // Assurez-vous de hacher le mot de passe ici avant de l'insérer dans la base de données
-        // Exemple d'utilisation de bcrypt pour hacher le mot de passe
-        // const hashedPassword = await bcrypt.hash(password, 10);
+  // Hashage du mot de passe
+  const hashedPassword = await bcrypt.hash(password, 10);
 
-        const client = await pool.connect(); // Se connecter au pool
+  try {
+    // Créer la table si elle n'existe pas (si ce n'est pas déjà fait dans une autre partie de votre code)
+    await client.sql`
+      CREATE TABLE IF NOT EXISTS client (
+        ref_client SERIAL PRIMARY KEY,
+        nom VARCHAR(255) NOT NULL,
+        prenom VARCHAR(255) NOT NULL,
+        adresse TEXT NOT NULL,
+        code_postal VARCHAR(10) NOT NULL,
+        ville VARCHAR(255) NOT NULL,
+        téléphone VARCHAR(15) NOT NULL,
+        email TEXT NOT NULL UNIQUE,
+        commercial_rattache VARCHAR(255) NOT NULL,
+        password TEXT NOT NULL
+      );
+    `;
 
-        // Exécution de la requête pour insérer le client
-        const result = await client.query(`
-            INSERT INTO client (nom, prenom, adresse, code_postal, ville, téléphone, email, password)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-            RETURNING *;
-        `, [nom, prenom, adresse, code_postal, ville, téléphone, email, password]); // Utilise hashedPassword ici
+    // Insérer l'utilisateur dans la base de données
+    await client.sql`
+      INSERT INTO client (nom, prenom, adresse, code_postal, ville, téléphone, email, commercial_rattache, password)
+      VALUES (${nom}, ${prenom}, ${adresse}, ${code_postal}, ${ville}, ${téléphone}, ${email}, '****', ${hashedPassword}) -- Remplacez commercial_rattache par '****'
+      ON CONFLICT (email) DO NOTHING;
+    `;
 
-        client.release(); // Libère le client
-
-        return NextResponse.json({ message: 'Client créé avec succès', client: result.rows[0] });
-    } catch (error) {
-        console.error(error);
-        return NextResponse.json({ message: 'Erreur lors de la création du client' }, { status: 500 });
-    }
+    return NextResponse.json({ message: 'Utilisateur créé avec succès.' }, { status: 201 });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ message: 'Une erreur est survenue.' }, { status: 500 });
+  } finally {
+    await client.release(); // Libérer la connexion après utilisation
+  }
 }

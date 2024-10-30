@@ -1,7 +1,7 @@
 import '@/app/ui/global.css';
-import LoginForm from '@/app/ui/auth-components/signin';
 import { Metadata } from 'next';
 import VillageGreenLogo from '@/app/ui/acme-logo';
+import LoginForm from '@/app/ui/auth-components/login-form';
  
 export const metadata: Metadata = {
     title: 'Login',

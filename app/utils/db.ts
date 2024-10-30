@@ -1,22 +1,15 @@
 // utils/db.ts
-import { Pool } from 'pg';
+import { db } from '@vercel/postgres'; // Assurez-vous que le bon chemin est utilisé
 import { verifyPassword } from './password';
 
-// Configuration de la base de données PostgreSQL
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
-
 export async function getUserFromDb(email: string, plainPassword: string) {
-  try {
-    // Connexion à la base de données
-    const client = await pool.connect();
-    
-    // Requête pour obtenir l'utilisateur par email
-    const query = 'SELECT * FROM client WHERE email = $1';
-    const result = await client.query(query, [email]);
+  const client = await db.connect(); // Connexion à la base de données
 
-    client.release();
+  try {
+    // Requête pour obtenir l'utilisateur par email
+    const result = await client.sql`
+      SELECT * FROM client WHERE email = ${email};
+    `;
 
     // Vérifier si l'utilisateur existe
     if (result.rows.length === 0) {
@@ -37,5 +30,7 @@ export async function getUserFromDb(email: string, plainPassword: string) {
   } catch (err) {
     console.error('Erreur lors de la récupération de l’utilisateur dans la base de données', err);
     return null;
+  } finally {
+    await client.release(); // Libérer la connexion après utilisation
   }
 }

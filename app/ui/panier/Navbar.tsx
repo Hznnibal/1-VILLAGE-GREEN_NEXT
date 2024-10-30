@@ -1,10 +1,12 @@
 "use client";
 
+
 import Link from "next/link";
 import { FC, useState } from "react";
 import SideCart from "./SideCart";
 import { useCart } from "@/app/ui/context/CartProvider";
 import { UserIcon } from "@heroicons/react/24/outline";
+import UserButton from "../auth-components/user-button";
 
 interface Props {}
 
@@ -138,6 +140,7 @@ const Navbar: FC<Props> = () => {
           <UserIcon className="w-6" />
           <span className="hidden md:block">Compte</span>
         </Link>
+        {/* <UserButton /> */}
         </nav>
       </div>
       <SideCart

@@ -100,7 +100,7 @@ const SideCart: FC<Props> = ({ visible, onRequestClose }) => {
             }
             onRequestClose && onRequestClose();
           }}
-          className="border-2 border-orange-600 py-2 w-full rounded text-orange-600 uppercase"
+          className="border-2 border-blue-600 py-2 w-full rounded text-blue-600 uppercase"
         >
           Checkout
         </button>

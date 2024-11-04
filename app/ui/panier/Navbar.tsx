@@ -1,12 +1,10 @@
 "use client";
 
-
 import Link from "next/link";
 import { FC, useState } from "react";
 import SideCart from "./SideCart";
 import { useCart } from "@/app/ui/context/CartProvider";
 import { UserIcon } from "@heroicons/react/24/outline";
-import UserButton from "../auth-components/user-button";
 
 interface Props {}
 
@@ -27,128 +25,91 @@ const CartIcon = ({ size, color }: { size?: number; color?: string }) => {
   );
 };
 
-const Logo = ({ color }: { color?: string }) => {
-  return (
-    <svg
-      width="53"
-      height="43"
-      viewBox="0 0 53 43"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M3.0475 15.9H49.9525C51.6336 15.9 53 14.5336 53 12.8525C53 12.248 52.8178 11.66 52.4866 11.1631L46.2259 1.77219C45.4889 0.6625 44.255 0 42.9217 0H10.0783C8.75328 0 7.51109 0.6625 6.77406 1.77219L0.513438 11.1548C0.182187 11.66 0 12.248 0 12.8442C0 14.5336 1.36641 15.9 3.0475 15.9ZM5.3 18.55V38.425C5.3 40.6195 7.08047 42.4 9.275 42.4H27.825C30.0195 42.4 31.8 40.6195 31.8 38.425V18.55H26.5V31.8H10.6V18.55H5.3ZM42.4 18.55V39.75C42.4 41.2158 43.5842 42.4 45.05 42.4C46.5158 42.4 47.7 41.2158 47.7 39.75V18.55H42.4Z"
-        fill={color || "#000"}
-      />
-    </svg>
-  );
-};
-
 const NavList = ({
-  mobileNav,
-  onClose,
+mobileNav,
+onClose,
 }: {
-  mobileNav?: boolean;
-  onClose?(): void;
+mobileNav?: boolean;
+onClose?(): void;
 }) => {
-  return (
-    <ul className="lg:w-1/2 md:w-[75%] w-full mx-auto md:space-y-0 space-y-10 flex items-center justify-between md:flex-row flex-col font-semibold">
-      {mobileNav ? (
-        <button
-          onClick={onClose}
-          className="space-y-1 absolute top-12 right-4 w-8 h-8"
-          aria-label="Close mobile menu" // Ajout de aria-label
-        >
-          <div className="w-8 h-1 bg-gray-800 rounded-full rotate-45" />
-          <div className="w-8 h-1 bg-gray-800 rounded-full -rotate-45 -translate-y-2" />
-        </button>
-      ) : null}
+return (
+<ul className="flex items-center md:space-x-20 space-y-4 md:space-y-0 flex-col md:flex-row font-semibold">
+  {mobileNav ? (
+    <button
+      onClick={onClose}
+      className="space-y-1 absolute top-12 right-4 w-8 h-8"
+      aria-label="Close mobile menu"
+    >
+      <div className="w-8 h-1 bg-gray-800 rounded-full rotate-45" />
+      <div className="w-8 h-1 bg-gray-800 rounded-full -rotate-45 -translate-y-2" />
+    </button>
+  ) : null}
 
-      <li className="text-orange-600">
-        <Link href="/">Home</Link>
-      </li>
-      <li>
-        <Link href="#">Shop</Link>
-      </li>
-      <li>
-        <Link href="#">About</Link>
-      </li>
-      <li>
-        <Link href="#">Contact</Link>
-      </li>
-    </ul>
-  );
+  <li className="nav-item md-nav-item">
+    <Link href="/">Accueil</Link>
+  </li>
+  <li className="nav-item md-nav-item">
+    <Link href="#">Shop</Link>
+  </li>
+  <li className="nav-item md-nav-item">
+    <Link href="#">About</Link>
+  </li>
+  <li className="nav-item md-nav-item">
+    <Link href="#">Contact</Link>
+  </li>
+</ul>
+);
 };
 
 const Navbar: FC<Props> = () => {
-  const { countAllItems, countTotalPrice } = useCart();
-  const [showNav, setShowNav] = useState(false);
-  const [showSideCart, setShowSideCart] = useState(false);
-  const cartItems = countAllItems();
+const { countAllItems, countTotalPrice } = useCart();
+const [showNav, setShowNav] = useState(false);
+const [showSideCart, setShowSideCart] = useState(false);
+const cartItems = countAllItems();
 
-  const toggleMobileNav = () => {
-    setShowNav(!showNav);
-  };
+const toggleMobileNav = () => {
+  setShowNav(!showNav);
+};
 
-  return (
-    <>
-      <div className="max-w-6xl mx-auto py-10 px-4">
-        <nav className="flex items-center justify-between">
-          <div>
-            <Link href="/">
-              <Logo color="#ea580c" />
-            </Link>
-          </div>
+return (
+  <>
+    <div className="max-w-5xl mx-auto py-10 px-4">
+      <nav className="flex items-center justify-between">
+        <div className="w-full md:flex md:items-center md:justify-between">
+          <NavList />
 
-          <div className="w-full md:block hidden">
-            <NavList />
-          </div>
-
-          {showNav && (
-            <div className="bg-white absolute inset-0 z-50 flex items-center justify-center">
-              <NavList onClose={toggleMobileNav} mobileNav={showNav} />
-            </div>
-          )}
-
-          <div className="flex items-center space-x-8">
+          <div className="flex items-center ml-12 space-x-3">
             <p className="font-bold text-gray-800">${countTotalPrice()}</p>
 
             <button
               onClick={() => setShowSideCart((old) => !old)}
               className="bg-gray-200 p-3 rounded-full relative"
-              aria-label="Open shopping cart" // Ajout de aria-label
+              aria-label="Open shopping cart"
             >
               <CartIcon color="#011627" size={16} />
-              {cartItems > 0 ? (
-                <div className="font-semibold absolute text-white bg-orange-600 text-xs w-6 h-6 rounded-full flex items-center justify-center -top-2 -right-2 bg-opacity-70">
-                  <p>{cartItems >= 9 ? "9+" : cartItems}</p>
+              {cartItems > 0 && (
+                <div className="font-semibold absolute text-white bg-blue-700 text-xs w-6 h-6 rounded-full flex items-center justify-center -top-2 -right-2 bg-opacity-70">
+                  {cartItems >= 9 ? "9+" : cartItems}
                 </div>
-              ) : null}
-            </button>
-
-            <button
-              onClick={toggleMobileNav}
-              className="space-y-1 block md:hidden"
-              aria-label={showNav ? "Close menu" : "Open menu"} // Ajout de aria-label
-            >
-              <div className="w-8 h-1 bg-black rounded-full" />
-              <div className="w-8 h-1 bg-black rounded-full" />
-              <div className="w-8 h-1 bg-black rounded-full" />
+              )}
             </button>
           </div>
-          <Link href="/compte" className="flex items-center gap-2 p-2 text-sm font-medium text-gray-700 hover:text-blue-600">
-          <UserIcon className="w-6" />
-          <span className="hidden md:block">Compte</span>
-        </Link>
-        {/* <UserButton /> */}
-        </nav>
+        </div>
+      </nav>
+    </div>
+
+    {showNav && (
+      <div className="bg-white absolute inset-0 z-50 flex items-center justify-center">
+        <NavList onClose={toggleMobileNav} mobileNav={showNav} />
       </div>
-      <SideCart
-        visible={showSideCart}
-        onRequestClose={() => setShowSideCart(false)}
-      />
-    </>
-  );
+    )}
+
+    <SideCart
+      visible={showSideCart}
+      onRequestClose={() => setShowSideCart(false)}
+    />
+  </>
+);
 };
 
 export default Navbar;

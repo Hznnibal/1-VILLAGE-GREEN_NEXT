@@ -1,6 +1,6 @@
 import '@/app/ui/global.css';
-import SignupForm from "@/app/ui/auth-components/signup";
-import VillageGreenLogo from '@/app/ui/acme-logo';
+import SignupForm from "@/app/ui/authentification/signup";
+import VillageGreenLogo from '@/app/ui/village-logo';
 
 export default function Page() {
     return (

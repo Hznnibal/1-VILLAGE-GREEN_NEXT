@@ -31,7 +31,7 @@ const ProductCard: FC<Props> = ({ product }) => {
       </div>
 
       {/* Exemple pour afficher un pourcentage de réduction si applicable */}
-      <span className="absolute top-2 right-2 font-semibold bg-orange-600 p-2 rounded-md inline-block text-sm text-white shadow-md">
+      <span className="absolute top-2 right-2 font-semibold bg-blue-600 p-2 rounded-md inline-block text-sm text-white shadow-md">
         {Math.round((1 - product.prix / (product.prix + 20)) * 100)}% Off {/* Exemple de calcul */}
       </span>
 

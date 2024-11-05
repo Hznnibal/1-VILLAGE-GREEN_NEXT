@@ -1,8 +1,7 @@
-// app/api/signup/route.ts
-
 import bcrypt from 'bcrypt';
-import { db } from '@vercel/postgres'; // Assurez-vous que le bon chemin est utilisé
+import { db } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
+import { stripe } from '@/app/lib/stripe'; // Assurez-vous du chemin correct vers l'instance Stripe
 
 const client = await db.connect();
 
@@ -18,11 +17,9 @@ export async function POST(request: Request) {
     téléphone,
   } = await request.json();
 
-  // Hashage du mot de passe
   const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
-    // Créer la table si elle n'existe pas (si ce n'est pas déjà fait dans une autre partie de votre code)
     await client.sql`
       CREATE TABLE IF NOT EXISTS client (
         ref_client SERIAL PRIMARY KEY,
@@ -34,22 +31,39 @@ export async function POST(request: Request) {
         téléphone VARCHAR(15) NOT NULL,
         email TEXT NOT NULL UNIQUE,
         commercial_rattache VARCHAR(255) NOT NULL,
-        password TEXT NOT NULL
+        password TEXT NOT NULL,
+        stripe_customer_id TEXT
       );
     `;
 
-    // Insérer l'utilisateur dans la base de données
-    await client.sql`
+    // Insertion de l'utilisateur
+    const insertedUser = await client.sql`
       INSERT INTO client (nom, prenom, adresse, code_postal, ville, téléphone, email, commercial_rattache, password)
-      VALUES (${nom}, ${prenom}, ${adresse}, ${code_postal}, ${ville}, ${téléphone}, ${email}, '****', ${hashedPassword}) -- Remplacez commercial_rattache par '****'
-      ON CONFLICT (email) DO NOTHING;
+      VALUES (${nom}, ${prenom}, ${adresse}, ${code_postal}, ${ville}, ${téléphone}, ${email}, '****', ${hashedPassword})
+      RETURNING ref_client;
     `;
 
-    return NextResponse.json({ message: 'Utilisateur créé avec succès.' }, { status: 201 });
+    const refClient = insertedUser.rows[0]?.ref_client;
+    if (!refClient) throw new Error("L'utilisateur n'a pas été inséré correctement.");
+
+    // Création d'un client Stripe
+    const stripeCustomer = await stripe.customers.create({
+      email,
+      name: `${prenom} ${nom}`,
+    });
+
+    // Mise à jour de la table `client` avec l'ID Stripe
+    await client.sql`
+      UPDATE client
+      SET stripe_customer_id = ${stripeCustomer.id}
+      WHERE ref_client = ${refClient};
+    `;
+
+    return NextResponse.json({ message: 'Utilisateur créé et ajouté à Stripe avec succès.' }, { status: 201 });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ message: 'Une erreur est survenue.' }, { status: 500 });
   } finally {
-    await client.release(); // Libérer la connexion après utilisation
+    await client.release();
   }
 }

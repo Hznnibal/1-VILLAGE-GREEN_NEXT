@@ -5,6 +5,7 @@ import { sql } from "@vercel/postgres";
 import type { Client } from "@/app/lib/definitions";
 import bcrypt from 'bcrypt';
 import { authConfig } from "./auth.config";
+import { stripe } from "@/app/lib/stripe"; // Assurez-vous de pointer vers la configuration Stripe correcte
 
 async function getUser(email: string): Promise<Client | undefined> {
   try {
@@ -29,17 +30,39 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           .object({ email: z.string().email(), password: z.string().min(6) })
           .safeParse(credentials);
 
-          if (parsedCredentials.success) {
-            const { email, password } = parsedCredentials.data;
-            const user = await getUser(email);
-            if (!user) return null;
-  
-            const passwordsMatch = await bcrypt.compare(password, user.password);
-            if (passwordsMatch) return user;
-          }
-          console.log('Invalid credentials');
-          return null;
+        if (parsedCredentials.success) {
+          const { email, password } = parsedCredentials.data;
+          const user = await getUser(email);
+          if (!user) return null;
+
+          const passwordsMatch = await bcrypt.compare(password, user.password);
+          if (passwordsMatch) return user;
+        }
+        console.log('Invalid credentials');
+        return null;
       },
     }),
   ],
+  events: {
+    createUser: async (message) => {
+      const email = message.user.email;
+
+      if (!email) {
+        return;
+      }
+
+      // Crée un nouveau client Stripe
+      const stripeCustomer = await stripe.customers.create({
+        email,
+        name: `${message.user.name}`, // Assurez-vous d'avoir accès à ces champs
+      });
+
+      // Met à jour la base de données avec l'ID Stripe
+      await sql`
+        UPDATE client
+        SET stripe_customer_id = ${stripeCustomer.id}
+        WHERE ref_client = ${message.user.id};
+      `;
+    },
+  },
 });

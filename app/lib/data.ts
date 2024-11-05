@@ -200,8 +200,9 @@ export async function fetchClients() {
     const data = await sql<Client>`
       SELECT
         ref_client,
+        prenom,
         nom,
-        email
+        email,
       FROM Client
       ORDER BY nom ASC
     `;

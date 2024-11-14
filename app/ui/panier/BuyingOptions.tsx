@@ -1,7 +1,7 @@
 "use client";
 
 import { Produit } from "@/app/lib/definitions";
-import { useCart } from "@/app/ui/context/CartProvider";
+import { useCart } from "@/app/ui/panier/CartProvider";
 import { FC } from "react";
 interface Props {
   product: Produit;
@@ -19,10 +19,10 @@ const BuyingOptions: FC<Props> = ({ product }) => {
         onClick={onAddToCartClick}
         className="flex-1 border-2 border-blue-400 p-2 rounded-md text-gray-800"
       >
-        Add to Cart
+        Ajoutez au panier
       </button>
       <button className="flex-1 bg-blue-600 p-2 rounded-md text-white">
-        Buy Now
+        Payez maintenant
       </button>
     </div>
   );

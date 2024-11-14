@@ -1,6 +1,6 @@
 'use client'
 
-import { useCart } from "@/app/ui/context/CartProvider";
+import { useCart } from "@/app/ui/panier/CartProvider";
 import Image from "next/image";
 import { FC, useEffect } from "react";
 
@@ -59,7 +59,7 @@ const CheckoutPage: FC = () => {
                 onClick={() => removeFromCart(cartItem.product)}
                 className="text-xs uppercase hover:underline"
               >
-                Remove
+                Supprimer
               </button>
               <div className="flex items-center justify-between">
                 <button onClick={() => updateCart(cartItem.product, -1)}> - </button>
@@ -81,7 +81,7 @@ const CheckoutPage: FC = () => {
           onClick={handleCheckout}
           className="border-2 border-blue-600 py-2 px-6 mt-4 rounded text-blue-600 uppercase"
         >
-          Checkout
+          Commandez
         </button>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { fetchProduits, fetchRubriques } from '@/app/lib/data';
 import ProductCard from '@/app/ui/panier/ProductCard';
+import { redirect } from 'next/navigation';
 
 const RUBRIQUES = {
   guitares: 1,
@@ -55,7 +56,7 @@ export default async function InstrumentsPage({ params }: { params: { rubrique: 
 
   // Vérifier si la rubrique existe dans les RUBRIQUES
   if (!RUBRIQUES[rubriqueKey]) {
-    return <div>Rubrique non trouvée</div>;
+    return redirect("/");
   }
 
   const idRubrique = RUBRIQUES[rubriqueKey];

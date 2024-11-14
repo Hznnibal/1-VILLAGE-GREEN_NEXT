@@ -1,5 +1,5 @@
 "use client";
-import CartProvider from "@/app/ui/context/CartProvider";
+import CartProvider from "@/app/ui/panier/CartProvider";
 import { SessionProvider } from "next-auth/react";
 import { FC, ReactNode } from "react";
 

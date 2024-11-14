@@ -13,6 +13,7 @@ export type Client = {
   email: string;
   commercial_rattache: string;
   password: string;
+  role: string;
 };
 
 // Définit le type correspondant à la table "Rubrique"

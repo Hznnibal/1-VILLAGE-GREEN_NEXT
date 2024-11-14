@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { FC, useState } from "react";
 import SideCart from "./SideCart";
-import { useCart } from "@/app/ui/context/CartProvider";
+import { useCart } from "@/app/ui/panier/CartProvider";
 import { UserIcon } from "@heroicons/react/24/outline";
 
 interface Props {}
@@ -49,10 +49,10 @@ return (
     <Link href="/">Accueil</Link>
   </li>
   <li className="nav-item md-nav-item">
-    <Link href="#">Shop</Link>
+    <Link href="#">Magasin</Link>
   </li>
   <li className="nav-item md-nav-item">
-    <Link href="#">About</Link>
+    <Link href="#">A propos de nous</Link>
   </li>
   <li className="nav-item md-nav-item">
     <Link href="#">Contact</Link>

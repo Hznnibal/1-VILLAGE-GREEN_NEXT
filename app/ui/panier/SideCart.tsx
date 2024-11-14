@@ -1,4 +1,4 @@
-import { useCart } from "@/app/ui/context/CartProvider";
+import { useCart } from "@/app/ui/panier/CartProvider";
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -27,9 +27,9 @@ const SideCart: FC<Props> = ({ visible, onRequestClose }) => {
       className="shadow-md transition-all w-96 bg-white min-h-screen fixed right-0 top-0 flex flex-col z-50"
     >
       <div className="p-4 flex justify-between">
-        <h1 className="font-semibold uppercase text-gray-600">Cart</h1>
+        <h1 className="font-semibold uppercase text-gray-600">Panier</h1>
         <button onClick={clearCart} className="uppercase text-sm">
-          Clear
+          Tout supprimer
         </button>
       </div>
       <div className="w-full h-0.5 bg-gray-200" />
@@ -59,7 +59,7 @@ const SideCart: FC<Props> = ({ visible, onRequestClose }) => {
                   onClick={() => removeFromCart(cartItem.product)}
                   className="text-xs uppercase hover:underline"
                 >
-                  Remove
+                  Supprimer
                 </button>
 
                 <div className="flex items-center justify-between">
@@ -102,13 +102,13 @@ const SideCart: FC<Props> = ({ visible, onRequestClose }) => {
           }}
           className="border-2 border-blue-600 py-2 w-full rounded text-blue-600 uppercase"
         >
-          Checkout
+          Commandez
         </button>
         <button
           onClick={onRequestClose}
           className="outline-none block mt-4 text-center w-full uppercase"
         >
-          Close
+          Fermer
         </button>
       </div>
     </div>

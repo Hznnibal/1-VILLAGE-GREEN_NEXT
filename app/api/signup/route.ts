@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import { db } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
-import { stripe } from '@/app/lib/stripe'; // Assurez-vous du chemin correct vers l'instance Stripe
+import { stripe } from '@/app/lib/stripe';
 
 const client = await db.connect();
 
@@ -32,7 +32,16 @@ export async function POST(request: Request) {
         email TEXT NOT NULL UNIQUE,
         commercial_rattache VARCHAR(255) NOT NULL,
         password TEXT NOT NULL,
+        role VARCHAR(50) NOT NULL,
         stripe_customer_id TEXT
+      );
+    `;
+
+    await client.sql`
+      CREATE TABLE IF NOT EXISTS type_client (
+        id_type_client SERIAL PRIMARY KEY,
+        type_client VARCHAR(255) NOT NULL,
+        ref_client INTEGER REFERENCES client(ref_client) ON DELETE CASCADE
       );
     `;
 
@@ -59,7 +68,13 @@ export async function POST(request: Request) {
       WHERE ref_client = ${refClient};
     `;
 
-    return NextResponse.json({ message: 'Utilisateur créé et ajouté à Stripe avec succès.' }, { status: 201 });
+    // Insertion dans la table `type_client` pour lier l'utilisateur
+    await client.sql`
+      INSERT INTO type_client (type_client, ref_client)
+      VALUES ('Particulier', ${refClient});
+    `;
+
+    return NextResponse.json({ message: 'Utilisateur créé, ajouté à Stripe, et type_client mis à jour avec succès.' }, { status: 201 });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ message: 'Une erreur est survenue.' }, { status: 500 });

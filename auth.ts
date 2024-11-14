@@ -1,11 +1,11 @@
+import type { Client } from "@/app/lib/definitions";
+import { stripe } from "@/app/lib/stripe";
+import { sql } from "@vercel/postgres";
+import bcrypt from "bcrypt";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
-import { sql } from "@vercel/postgres";
-import type { Client } from "@/app/lib/definitions";
-import bcrypt from 'bcrypt';
 import { authConfig } from "./auth.config";
-import { stripe } from "@/app/lib/stripe"; // Assurez-vous de pointer vers la configuration Stripe correcte
 
 async function getUser(email: string): Promise<Client | undefined> {
   try {
@@ -38,7 +38,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const passwordsMatch = await bcrypt.compare(password, user.password);
           if (passwordsMatch) return user;
         }
-        console.log('Invalid credentials');
+        console.log("Invalid credentials");
         return null;
       },
     }),
@@ -54,7 +54,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       // Crée un nouveau client Stripe
       const stripeCustomer = await stripe.customers.create({
         email,
-        name: `${message.user.name}`, // Assurez-vous d'avoir accès à ces champs
+        name: `${message.user.name}`,
       });
 
       // Met à jour la base de données avec l'ID Stripe

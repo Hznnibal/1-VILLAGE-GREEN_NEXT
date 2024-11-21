@@ -1,6 +1,6 @@
 import { fetchProduits, fetchRubriques } from '@/app/lib/data';
-import ProductCard from '@/app/ui/panier/ProductCard';
 import { redirect } from 'next/navigation';
+import ProductList from './ProductList';
 
 const RUBRIQUES = {
   guitares: 1,
@@ -16,7 +16,7 @@ const RUBRIQUES = {
   'batteries-acoustiques': 11,
   'batteries-electroniques': 12,
   claviers_et_synthetiseurs: 13,
-  'synthetiseurs': 14,
+  synthetiseurs: 14,
   'pianos-scene': 15,
   instruments_a_vents: 16,
   'cuivres': 17,
@@ -24,26 +24,9 @@ const RUBRIQUES = {
   instruments_traditionnels: 19,
   'cordes-frottees': 20,
   'percussions-traditionnelles': 21,
-};
+} as const;
 
 type RubriqueKeys = keyof typeof RUBRIQUES;
-
-interface Produit {
-  id_produit: number;
-  description: string;
-  photo: string;
-  libelle: string;
-  prix: number;
-  id_rubrique: number;
-  active:boolean;
-  id_fournisseur:number;
-}
-
-interface Rubrique {
-  id_rubrique: number;
-  libelle: string;
-  id_rubrique_1: number | null; // Peut être null si la rubrique est une catégorie principale
-}
 
 export async function generateStaticParams() {
   return Object.keys(RUBRIQUES).map((rubrique) => ({
@@ -51,47 +34,39 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function InstrumentsPage({ params }: { params: { rubrique: string } }) {
-  const rubriqueKey = params.rubrique as RubriqueKeys;
+export default async function InstrumentsPage({
+  params,
+}: {
+  params: { rubrique: string };
+}) {
+  const resolvedParams = await params;
+  const rubrique = resolvedParams.rubrique;
 
-  // Vérifier si la rubrique existe dans les RUBRIQUES
-  if (!RUBRIQUES[rubriqueKey]) {
-    return redirect("/");
+  if (!rubrique) {
+    redirect('/');
   }
 
+
+
+  const rubriqueKey = rubrique as RubriqueKeys;
   const idRubrique = RUBRIQUES[rubriqueKey];
 
-  // Fetch des produits et des rubriques depuis la base de données
-  const produits: Produit[] = await fetchProduits();
-  const rubriques: Rubrique[] = await fetchRubriques(); // Ajout pour récupérer les rubriques
+  if (!idRubrique) {
+    redirect('/');
+  }
 
-  // Filtrer les produits selon la rubrique
-  const produitsFiltres = produits.filter((p) => p.id_rubrique === idRubrique);
-
-  // Trouver les sous-rubriques
-  const sousRubriques = rubriques.filter((r) => r.id_rubrique_1 === idRubrique);
+  const [produits, rubriques] = await Promise.all([
+    fetchProduits(),
+    fetchRubriques(),
+  ]);
 
   return (
-    <div className="container mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-        {sousRubriques.map((sousRubrique) => {
-          // Filtrer les produits selon la sous-rubrique
-          const produitsSousRubrique = produits.filter((p) => p.id_rubrique === sousRubrique.id_rubrique);
-
-          return (
-            <div key={sousRubrique.id_rubrique}>
-              <h3 className="font-bold text-lg">{sousRubrique.libelle}</h3>
-
-              <div className="grid grid-cols-1 md:grid-cols-12 lg:grid-cols-1 gap-10">
-                {produitsSousRubrique.map((produit) => (
-                  <ProductCard key={produit.id_produit} product={produit} />
-                ))}
-              </div>
-            </div>
-          );
-        })}
-      </div>
+    <div className="container mx-auto px-4 py-8">
+      <ProductList
+        produits={produits}
+        rubriques={rubriques}
+        selectedRubrique={idRubrique}
+      />
     </div>
   );
-  
 }

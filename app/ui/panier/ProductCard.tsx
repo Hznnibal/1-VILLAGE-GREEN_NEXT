@@ -1,41 +1,46 @@
+import { Produit } from "@/app/lib/definitions";
 import Image from "next/image";
 import { FC } from "react";
-import { Produit } from "@/app/lib/definitions"; // Assurez-vous d'importer le type 'Produit'
 import BuyingOptions from "./BuyingOptions";
 
 interface Props {
-  product: Produit; // Utilisation du type 'Produit' correspondant à la table SQL
+  product: Produit;
 }
 
 const ProductCard: FC<Props> = ({ product }) => {
   return (
-    <div className="w-full bg-white shadow-md rounded overflow-hidden relative">
-      <div className="w-full aspect-square relative">
+    <div className="w-full h-[32rem] bg-black shadow-md rounded-lg overflow-hidden relative border-2 border-white transition-transform duration-300 ease-in-out transform group hover:scale-105 hover:shadow-[0_4px_15px_rgba(255,255,255,0.2)] flex flex-col">
+      <div className="h-[60%] relative">
         <Image
-          src={product.photo} // Utilise 'photo' qui correspond à l'image du produit dans votre table
-          alt={product.libelle} // Utilise 'libelle' comme titre du produit
-          className="w-full aspect-square object-cover"
+          src={product.photo}
+          alt={product.libelle}
+          className="w-full h-full object-cover"
           fill
         />
       </div>
 
-      <div className="p-4 space-y-2">
-        <h1 className="font-semibold text-2xl">{product.libelle}</h1> {/* Utilisation de 'libelle' pour le nom du produit */}
-        <div className="flex items-center space-x-3">
-          {/* Si vous souhaitez ajouter un prix barré, assurez-vous de gérer les prix promotionnels ou les réductions */}
-          <p className="line-through italic text-gray-500">
-            Prix Original: {product.prix + 20} € {/* Exemple de prix barré */}
+      <div className="h-[40%]  flex flex-col justify-between p-4 space-y-2">
+        <div>
+          <h1 className="font-semibold text-lg text-white">{product.libelle}</h1>
+          <div className="flex items-center space-x-3">
+            <p className="line-through italic text-gray-500">
+              {product.prix + 20} €
+            </p>
+            <p className="font-semibold text-white">{product.prix} €</p>
+          </div>
+          <p className="text-gray-400 text-sm line-clamp-2 mt-2">
+            {product.description}
           </p>
-          <p className="font-semibold">Prix: {product.prix} €</p> {/* Affichage du prix réel */}
+        </div>
+
+        <span className="absolute top-2 right-2 font-semibold bg-slate-800 p-2 rounded-md inline-block text-sm text-white shadow-md">
+          {Math.round((1 - product.prix / (product.prix + 20)) * 100)}% Off
+        </span>
+
+        <div>
+          <BuyingOptions product={product} />
         </div>
       </div>
-
-      {/* Exemple pour afficher un pourcentage de réduction si applicable */}
-      <span className="absolute top-2 right-2 font-semibold bg-blue-600 p-2 rounded-md inline-block text-sm text-white shadow-md">
-        {Math.round((1 - product.prix / (product.prix + 20)) * 100)}% Off {/* Exemple de calcul */}
-      </span>
-
-      <BuyingOptions product={product} />
     </div>
   );
 };

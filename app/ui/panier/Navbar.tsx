@@ -1,12 +1,11 @@
 "use client";
 
+import { useCart } from "@/app/ui/panier/CartProvider";
 import Link from "next/link";
 import { FC, useState } from "react";
 import SideCart from "./SideCart";
-import { useCart } from "@/app/ui/panier/CartProvider";
-import { UserIcon } from "@heroicons/react/24/outline";
 
-interface Props {}
+interface Props { }
 
 const CartIcon = ({ size, color }: { size?: number; color?: string }) => {
   return (
@@ -26,90 +25,90 @@ const CartIcon = ({ size, color }: { size?: number; color?: string }) => {
 };
 
 const NavList = ({
-mobileNav,
-onClose,
+  mobileNav,
+  onClose,
 }: {
-mobileNav?: boolean;
-onClose?(): void;
+  mobileNav?: boolean;
+  onClose?(): void;
 }) => {
-return (
-<ul className="flex items-center md:space-x-20 space-y-4 md:space-y-0 flex-col md:flex-row font-semibold">
-  {mobileNav ? (
-    <button
-      onClick={onClose}
-      className="space-y-1 absolute top-12 right-4 w-8 h-8"
-      aria-label="Close mobile menu"
-    >
-      <div className="w-8 h-1 bg-gray-800 rounded-full rotate-45" />
-      <div className="w-8 h-1 bg-gray-800 rounded-full -rotate-45 -translate-y-2" />
-    </button>
-  ) : null}
+  return (
+    <ul className="flex items-center md:space-x-20 space-y-4 md:space-y-0 flex-col md:flex-row font-semibold">
+      {mobileNav ? (
+        <button
+          onClick={onClose}
+          className="space-y-1 absolute top-12 right-4 w-8 h-8"
+          aria-label="Close mobile menu"
+        >
+          <div className="w-8 h-1 bg-gray-800 rounded-full rotate-45" />
+          <div className="w-8 h-1 bg-gray-800 rounded-full -rotate-45 -translate-y-2" />
+        </button>
+      ) : null}
 
-  <li className="nav-item md-nav-item">
-    <Link href="/">Accueil</Link>
-  </li>
-  <li className="nav-item md-nav-item">
-    <Link href="#">Magasin</Link>
-  </li>
-  <li className="nav-item md-nav-item">
-    <Link href="#">A propos de nous</Link>
-  </li>
-  <li className="nav-item md-nav-item">
-    <Link href="#">Contact</Link>
-  </li>
-</ul>
-);
+      <li className="nav-item md-nav-item">
+        <Link href="/">Accueil</Link>
+      </li>
+      <li className="nav-item md-nav-item">
+        <Link href="/magasin">Magasin</Link>
+      </li>
+      <li className="nav-item md-nav-item">
+        <Link href="/apropos">A propos de nous</Link>
+      </li>
+      <li className="nav-item md-nav-item">
+        <Link href="/contact">Contact</Link>
+      </li>
+    </ul>
+  );
 };
 
 const Navbar: FC<Props> = () => {
-const { countAllItems, countTotalPrice } = useCart();
-const [showNav, setShowNav] = useState(false);
-const [showSideCart, setShowSideCart] = useState(false);
-const cartItems = countAllItems();
+  const { countAllItems, countTotalPrice } = useCart();
+  const [showNav, setShowNav] = useState(false);
+  const [showSideCart, setShowSideCart] = useState(false);
+  const cartItems = countAllItems();
 
-const toggleMobileNav = () => {
-  setShowNav(!showNav);
-};
+  const toggleMobileNav = () => {
+    setShowNav(!showNav);
+  };
 
-return (
-  <>
-    <div className="max-w-5xl mx-auto py-10 px-4">
-      <nav className="flex items-center justify-between">
-        <div className="w-full md:flex md:items-center md:justify-between">
-          <NavList />
+  return (
+    <>
+      <div className="max-w-5xl mx-auto py-10 px-4">
+        <nav className="flex items-center justify-between">
+          <div className="w-full md:flex md:items-center md:justify-between">
+            <NavList />
 
-          <div className="flex items-center ml-12 space-x-3">
-            <p className="font-bold text-gray-800">${countTotalPrice()}</p>
+            <div className="flex items-center ml-12 space-x-3">
+              <p className="font-bold text-slate-50">${countTotalPrice()}</p>
 
-            <button
-              onClick={() => setShowSideCart((old) => !old)}
-              className="bg-gray-200 p-3 rounded-full relative"
-              aria-label="Open shopping cart"
-            >
-              <CartIcon color="#011627" size={16} />
-              {cartItems > 0 && (
-                <div className="font-semibold absolute text-white bg-blue-700 text-xs w-6 h-6 rounded-full flex items-center justify-center -top-2 -right-2 bg-opacity-70">
-                  {cartItems >= 9 ? "9+" : cartItems}
-                </div>
-              )}
-            </button>
+              <button
+                onClick={() => setShowSideCart((old) => !old)}
+                className="bg-gray-200 p-3 rounded-full relative"
+                aria-label="Open shopping cart"
+              >
+                <CartIcon color="#011627" size={16} />
+                {cartItems > 0 && (
+                  <div className="font-semibold absolute text-white bg-blue-700 text-xs w-6 h-6 rounded-full flex items-center justify-center -top-2 -right-2 bg-opacity-70">
+                    {cartItems >= 9 ? "9+" : cartItems}
+                  </div>
+                )}
+              </button>
+            </div>
           </div>
-        </div>
-      </nav>
-    </div>
-
-    {showNav && (
-      <div className="bg-white absolute inset-0 z-50 flex items-center justify-center">
-        <NavList onClose={toggleMobileNav} mobileNav={showNav} />
+        </nav>
       </div>
-    )}
 
-    <SideCart
-      visible={showSideCart}
-      onRequestClose={() => setShowSideCart(false)}
-    />
-  </>
-);
+      {showNav && (
+        <div className="bg-white absolute inset-0 z-50 flex items-center justify-center">
+          <NavList onClose={toggleMobileNav} mobileNav={showNav} />
+        </div>
+      )}
+
+      <SideCart
+        visible={showSideCart}
+        onRequestClose={() => setShowSideCart(false)}
+      />
+    </>
+  );
 };
 
 export default Navbar;

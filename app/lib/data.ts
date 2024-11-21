@@ -1,5 +1,11 @@
-import { sql } from '@vercel/postgres';
-import { Client, Produit, Commande, Rubrique, Fournisseur} from './definitions';
+import { sql } from "@vercel/postgres";
+import {
+  Client,
+  Commande,
+  Fournisseur,
+  Produit,
+  Rubrique,
+} from "./definitions";
 
 // Fonction pour récupérer tous les produits
 export async function fetchProduits() {
@@ -21,8 +27,8 @@ export async function fetchProduits() {
 
     return data.rows;
   } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch produits.');
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch produits.");
   }
 }
 
@@ -40,8 +46,8 @@ export async function fetchRubriques() {
 
     return data.rows;
   } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch rubriques.');
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch rubriques.");
   }
 }
 
@@ -65,8 +71,8 @@ export async function fetchCommandeById(id: string) {
 
     return commande[0];
   } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch commande.');
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch commande.");
   }
 }
 
@@ -80,14 +86,14 @@ export async function fetchClients() {
         nom,
         email,
       FROM Client
-      ORDER BY nom ASC
+      -- ORDER BY nom ASC
     `;
 
     const clients = data.rows;
     return clients;
   } catch (err) {
-    console.error('Database Error:', err);
-    throw new Error('Failed to fetch all clients.');
+    console.error("Database Error:", err);
+    throw new Error("Failed to fetch all clients.");
   }
 }
 
@@ -106,7 +112,7 @@ export async function fetchFournisseur() {
 
     return data.rows;
   } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch fournisseurs.');
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch fournisseurs.");
   }
 }

@@ -1,23 +1,28 @@
-import '@/app/ui/global.css';
 import { inter } from '@/app/ui/fonts';
-import SideNav from '../ui/Navbar (vertical)/sidenav';
-import Providers from '../ui/panier/Providers';
+import '@/app/ui/global.css';
+import { Metadata } from "next";
+import SideNav from '../ui/SideNav/sidenav';
 import Navbar from '../ui/panier/Navbar';
+import Providers from '../ui/panier/Providers';
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export const metadata: Metadata = {
+  title: 'Village Green',
+};
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <Providers>
       <html lang="en">
         <body className={inter.className}>
           <div className="flex h-screen">
-            <aside className="w-64 bg-white text-blue-950 flex flex-col">
+            <aside className="w-64 bg-background-color text-blue-950 flex flex-col">
               <SideNav />
             </aside>
             <div className="flex flex-col flex-grow">
-              <header className="h-16 bg-gray-100 shadow-md flex items-center justify-between p-4">
+              <header className="h-16 bg-171717 shadow-md flex items-center justify-between p-4">
                 <Navbar />
               </header>
-              <main className="flex-grow p-6 overflow-y-auto bg-white">
+              <main className="flex-grow overflow-y-auto bg-171717">
                 {children}
               </main>
             </div>

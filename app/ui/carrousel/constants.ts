@@ -1,7 +1,7 @@
 export const images = [
   {
     id: 1,
-    src: "/images_instruments/Guitar.png",
+    src: "/images_instruments/yamaha_pacifica.jpg",
     title: "Guitar",
     desc: "The guitar is a fretted musical instrument that usually has six strings. It is played by strumming or plucking the strings and is used in various genres of music.",
   },

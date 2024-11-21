@@ -17,11 +17,11 @@ const BuyingOptions: FC<Props> = ({ product }) => {
     <div className="flex p-2 space-x-2">
       <button
         onClick={onAddToCartClick}
-        className="flex-1 border-2 border-blue-400 p-2 rounded-md text-gray-800"
+        className="flex-1 border-2 border-blue-50 p-2 rounded-md text-blue-50"
       >
         Ajoutez au panier
       </button>
-      <button className="flex-1 bg-blue-600 p-2 rounded-md text-white">
+      <button className="flex-1 bg-blue-50 p-2 rounded-md text-black">
         Payez maintenant
       </button>
     </div>

@@ -1,7 +1,7 @@
-import bcrypt from 'bcrypt';
-import { db } from '@vercel/postgres';
-import { NextResponse } from 'next/server';
-import { stripe } from '@/app/lib/stripe';
+import { stripe } from "@/app/lib/stripe";
+import { db } from "@vercel/postgres";
+import bcrypt from "bcryptjs";
+import { NextResponse } from "next/server";
 
 const client = await db.connect();
 
@@ -53,7 +53,8 @@ export async function POST(request: Request) {
     `;
 
     const refClient = insertedUser.rows[0]?.ref_client;
-    if (!refClient) throw new Error("L'utilisateur n'a pas été inséré correctement.");
+    if (!refClient)
+      throw new Error("L'utilisateur n'a pas été inséré correctement.");
 
     // Création d'un client Stripe
     const stripeCustomer = await stripe.customers.create({
@@ -74,10 +75,19 @@ export async function POST(request: Request) {
       VALUES ('Particulier', ${refClient});
     `;
 
-    return NextResponse.json({ message: 'Utilisateur créé, ajouté à Stripe, et type_client mis à jour avec succès.' }, { status: 201 });
+    return NextResponse.json(
+      {
+        message:
+          "Utilisateur créé, ajouté à Stripe, et type_client mis à jour avec succès.",
+      },
+      { status: 201 }
+    );
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ message: 'Une erreur est survenue.' }, { status: 500 });
+    return NextResponse.json(
+      { message: "Une erreur est survenue." },
+      { status: 500 }
+    );
   } finally {
     await client.release();
   }

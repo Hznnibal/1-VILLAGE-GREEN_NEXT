@@ -19,11 +19,7 @@ export default function FilterMenu({
 
     return (
         <div className="mb-8">
-            <div className="h-[1px] w-[80%] bg-gray-300 mx-auto mb-5" />
-
-            {/* <h3 className="text-white text-xl font-semibold mb-4">Filtrer par catégorie</h3> */}
             <div className="flex flex-wrap gap-3 justify-center">
-
                 <button
                     onClick={() => setSelectedSousRubrique(null)}
                     className={`px-4 py-2 rounded-full transition-all duration-200 ${selectedSousRubrique === null

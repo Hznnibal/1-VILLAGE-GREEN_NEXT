@@ -1,9 +1,10 @@
 import { inter } from '@/app/ui/fonts';
 import '@/app/ui/global.css';
 import { Metadata } from "next";
-import SideNav from '../ui/SideNav/sidenav';
-import Navbar from '../ui/panier/Navbar';
+import UserButton from '../ui/authentification/user-button';
+import Navbar from '../ui/panier/Navbar/Navbar';
 import Providers from '../ui/panier/Providers';
+import SideNav from '../ui/SideNav/sidenav';
 
 export const metadata: Metadata = {
   title: 'Village Green',
@@ -14,15 +15,16 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <Providers>
       <html lang="en">
         <body className={inter.className}>
-          <div className="flex h-screen">
-            <aside className="w-64 bg-background-color text-blue-950 flex flex-col">
+          <div className="relative flex h-screen">
+            <aside className="w-64 flex-shrink-0 h-full bg-background-color text-blue-950">
               <SideNav />
             </aside>
-            <div className="flex flex-col flex-grow">
-              <header className="h-16 bg-171717 shadow-md flex items-center justify-between p-4">
+            <div className="flex-grow flex flex-col bg-171717">
+              <header className="h-16 bg-171717 shadow-md flex items-center justify-between p-4 border-b z-10">
                 <Navbar />
+                <UserButton />
               </header>
-              <main className="flex-grow overflow-y-auto bg-171717">
+              <main className="flex-grow overflow-y-auto p-4 bg-171717">
                 {children}
               </main>
             </div>
@@ -32,3 +34,4 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     </Providers>
   );
 }
+

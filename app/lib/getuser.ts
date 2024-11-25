@@ -1,0 +1,12 @@
+import { sql } from '@vercel/postgres';
+import type { Client } from '@/app/lib/definitions';
+
+export async function getUser(email: string): Promise<Client | undefined> {
+  try {
+    const result = await sql<Client>`SELECT * FROM client WHERE email = ${email}`;
+    return result.rows[0];
+  } catch (error) {
+    console.error('Failed to fetch user:', error);
+    throw new Error('Failed to fetch user.');
+  }
+}

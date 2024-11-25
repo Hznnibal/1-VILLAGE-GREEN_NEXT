@@ -1,0 +1,53 @@
+.date-box {
+  position: isAbsolute;
+  top: 75px;
+  left: 25px;
+  height: 60px;
+  width: 60px;
+  background-color: black;
+}
+
+.date-box .date {
+  font-size: 20px;
+  font-weight: 900;
+  color: #0088ff;
+}
+
+.card2 {
+  filter: hue-rotate(150deg);
+}
+
+.card3 {
+  filter: hue-rotate(300deg);
+}
+
+.card4 {
+  filter: hue-rotate(90deg);
+}
+
+.container {
+  padding: 50px 0px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.parent {
+  height: 400px;
+  width: 300px;
+  perspective: 1000px;
+}
+
+.card {
+  background-position: center;
+  width: 100%;
+  transition: all 0.5s ease;
+  border-radius: 10px;
+}
+
+.card:hover {
+  background-position: 80%;
+  transform: rotate3d(30deg);
+}

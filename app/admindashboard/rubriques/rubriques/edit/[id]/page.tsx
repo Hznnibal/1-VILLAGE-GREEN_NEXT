@@ -1,13 +1,19 @@
-import RubriqueForm from "@/app/ADMIN/CRUD/ui/rubrique-form";
 import { handleEditRubriqueAction } from "@/app/ADMIN/CRUD/lib/actions";
 import { fetchRubriqueById } from "@/app/ADMIN/CRUD/lib/data";
+import RubriqueForm from "@/app/ADMIN/CRUD/ui/rubrique-form";
 
-export default async function EditRubriquePage({ params }: { params: { id: string } }) {
-    const id_rubrique = Number(params?.id);
+// Type pour gérer params comme une promesse
+type Params = Promise<{ id: string }>;
+
+export default async function EditRubriquePage({ params }: { params: Params }) {
+    // Résolution de la promesse params
+    const resolvedParams = await params;
+    const id_rubrique = Number(resolvedParams.id);
+
     if (isNaN(id_rubrique)) {
         return (
             <div className="flex mt-4 text-center">
-                ID de rubrique invalide : {params?.id}.
+                ID de rubrique invalide : {resolvedParams.id}.
             </div>
         );
     }
@@ -17,7 +23,7 @@ export default async function EditRubriquePage({ params }: { params: { id: strin
     if (!rubrique) {
         return (
             <div className="flex mt-4 text-center">
-                Il n'y a pas de rubrique avec cet ID : {params.id}.
+                Il n'y a pas de rubrique avec cet ID : {resolvedParams.id}.
             </div>
         );
     }

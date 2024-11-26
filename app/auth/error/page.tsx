@@ -1,11 +1,12 @@
-"use client"
- 
+"use client"  // Marquer le fichier comme étant en mode client
+
 import { useSearchParams } from "next/navigation"
- 
+import { Suspense } from "react"
+
 enum Error {
   Configuration = "Configuration",
 }
- 
+
 const errorMap = {
   [Error.Configuration]: (
     <p>
@@ -15,11 +16,19 @@ const errorMap = {
     </p>
   ),
 }
- 
+
 export default function AuthErrorPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ErrorContent />
+    </Suspense>
+  )
+}
+
+function ErrorContent() {
   const search = useSearchParams()
   const error = search.get("error") as Error
- 
+
   return (
     <div className="flex h-screen w-full flex-col items-center justify-center">
       <a

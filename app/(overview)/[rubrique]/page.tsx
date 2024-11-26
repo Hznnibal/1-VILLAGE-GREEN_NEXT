@@ -28,25 +28,21 @@ const RUBRIQUES = {
 
 type RubriqueKeys = keyof typeof RUBRIQUES;
 
+type Params = Promise<{ rubrique: string }>;
+
 export async function generateStaticParams() {
   return Object.keys(RUBRIQUES).map((rubrique) => ({
     rubrique,
   }));
 }
 
-export default async function InstrumentsPage({
-  params,
-}: {
-  params: { rubrique: string };
-}) {
-  const resolvedParams = await params;
-  const rubrique = resolvedParams.rubrique;
+export default async function InstrumentsPage(props: { params: Params }) {
+  const params = await props.params; // Résolution de la promesse.
+  const rubrique = params.rubrique;
 
   if (!rubrique) {
     redirect('/');
   }
-
-
 
   const rubriqueKey = rubrique as RubriqueKeys;
   const idRubrique = RUBRIQUES[rubriqueKey];

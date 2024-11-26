@@ -32,7 +32,7 @@ const navItems: NavItem[] = [
     icon: <ShoppingCart className="h-5 w-5" />,
     submenu: [
       { title: "Historique commande", href: "/admindashboard/commande/historique" },
-      { title: "Chiffre d'affaire", href: "/admindashboard/commande/chiffre-affaire" },
+      { title: "Chiffre d'affaire", href: "/admindashboard/commande/chiffre_daffaire" },
       { title: "Produit les plus vendus", href: "/admindashboard/commande/produits-plus-vendus" },
     ],
   },

@@ -1,14 +1,19 @@
-import ProductForm from "@/app/ADMIN/CRUD/ui/product-form";
 import { handleEditProductAction } from "@/app/ADMIN/CRUD/lib/actions";
 import { fetchProduitById } from "@/app/ADMIN/CRUD/lib/data";
+import ProductForm from "@/app/ADMIN/CRUD/ui/product-form";
 
-export default async function EditProductPage({ params }: { params: { id: string } }) {
-    // Utilisation de Number pour convertir params.id en entier si possible
-    const id_produit = Number(params?.id);
+// Type pour gérer params comme une promesse
+type Params = Promise<{ id: string }>;
+
+export default async function EditProductPage({ params }: { params: Params }) {
+    // Résolution de la promesse params
+    const resolvedParams = await params;
+    const id_produit = Number(resolvedParams.id);
+
     if (isNaN(id_produit)) {
         return (
             <div className="flex mt-4 text-center">
-                ID de produit invalide : {params?.id}.
+                ID de produit invalide : {resolvedParams.id}.
             </div>
         );
     }
@@ -19,7 +24,7 @@ export default async function EditProductPage({ params }: { params: { id: string
     if (!product) {
         return (
             <div className="flex mt-4 text-center">
-                Il n'y a pas de produit avec cet ID : {params.id}.
+                Il n'y a pas de produit avec cet ID : {resolvedParams.id}.
             </div>
         );
     }

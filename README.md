@@ -15,20 +15,20 @@ Village Green is a web project designed for [brief project description, e.g., "m
 Before you begin, make sure you have the following tools installed:
 
 - [Node.js](https://nodejs.org/) (recommended version 16 or later)
-      node -v
+-     node -v
 - [Git](https://git-scm.com/)
-      git -v
+-     git -v
 - A PostgreSQL-compatible database.
 
      ## Installation
 
 ### 1. Clone the repository
 
-git clone https://github.com/your-username/village-green.git
+    git clone https://github.com/hznnibal/1-VILLAGE-GREEN.git
 
 ### 2. Install dependencies
 
-npm i
+    npm i
 
 ### 3. Set up the environment
 
@@ -37,11 +37,12 @@ Create a .env file at the root of the project and add the required environment v
 ### 4. Initialize the database
 
 If using an ORM like Prisma, run:
-npx prisma migrate dev
+
+    npx prisma migrate dev
 
 ### 5. Start the development server
 
-npm run dev
+    npm run dev
 
 The application will be accessible at http://localhost:3000.
 
